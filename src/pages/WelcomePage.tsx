@@ -62,7 +62,7 @@ const WelcomePage: React.FC<WelcomePageProps> = ({ user: externalUser }) => {
   
   const logout = () => {
     localStorage.clear(); 
-    window.location.href = '/login'; 
+    window.location.href = '/auth'; 
   };
 
   const API_KEY = 'AIzaSyBZBRnj4bsve294i-obsTEWvZHMvv0SCSk'; 
