@@ -1,0 +1,7 @@
+# Dependencias de Node
+node_modules/
+
+# Directorios de Build/Distribución
+dist/
+build/
+out/
