@@ -12,14 +12,23 @@ const AuthLayout: React.FC = () => {
   };
 
   return (
-    // Contenedor de página completa, sin límites ni bordes
-    <div className="w-full h-screen overflow-hidden">
+    // Contenedor de página completa, con altura mínima para móviles
+    <div className="w-full min-h-screen overflow-hidden">
       
-      {/* Grid de dos columnas: Formulario (1.2 partes) | Carrusel (1 parte) */}
-      <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] h-full">
+      {/* Grid: 
+        - Móvil (por defecto): 1 columna (grid-cols-1)
+        - Grande (lg): 2 columnas, donde el Formulario es 1.2fr y el Carrusel 1fr.
+      */}
+      <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] min-h-screen">
         
-        {/* Columna Izquierda: Formulario y Branding (TEMA CLARO) */}
-        <div className="p-8 md:p-16 flex flex-col justify-between bg-white text-gray-900 shadow-2xl lg:shadow-none">
+        {/* Columna Izquierda: Formulario y Branding */}
+        <div className="
+          p-8 md:p-16 flex flex-col justify-between 
+          bg-white text-gray-900 
+          shadow-2xl lg:shadow-none 
+          // Habilitar el scroll en móvil si el formulario es largo
+          overflow-y-auto
+        ">
           
           {/* Branding/Logo */}
           <header className="flex flex-col items-center mb-8">
@@ -31,8 +40,7 @@ const AuthLayout: React.FC = () => {
           </header>
 
           {/* Formulario - Contenedor de transición */}
-          {/* AJUSTE CLAVE: items-start para alinear arriba, pt-12 para subirlo, overflow-y-auto para evitar desbordamiento vertical. */}
-          <div className="flex-grow pt-12 pb-8 transition-opacity duration-300 flex justify-center overflow-y-auto"> 
+          <div className="flex-grow pt-4 pb-4 transition-opacity duration-300 flex justify-center"> 
             {isLogin ? (
               <LoginForm onSwitch={handleSwitch} />
             ) : (
@@ -41,12 +49,14 @@ const AuthLayout: React.FC = () => {
           </div>
           
           {/* Subtle Footer */}
-          <footer className="mt-8 pt-4 border-t border-gray-200 text-center text-xs text-gray-500">
+          <footer className="mt-8 pt-4 border-t border-gray-200 text-center text-xs text-gray-500 flex-shrink-0">
             &copy; 2025 Bolt Systems. Todos los derechos reservados.
           </footer>
         </div>
 
-        {/* Columna Derecha: Carrusel de Imágenes (Solo visible en pantallas grandes) */}
+        {/* Columna Derecha: Carrusel de Imágenes 
+          CLAVE: 'hidden lg:block' para ocultarlo en móvil y mostrarlo en desktop
+        */}
         <ImageCarousel />
       </div>
     </div>
